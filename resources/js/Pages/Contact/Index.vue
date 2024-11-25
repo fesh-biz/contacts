@@ -20,6 +20,15 @@ defineProps({
       </Link>
     </template>
 
-    <ContactTable :contacts="contacts" />
+    <!-- If No Contacts -->
+    <div
+      v-if="!contacts.length"
+      class="text-center"
+    >
+      <h2>Looks like you don't have any contacts.</h2>
+    </div>
+
+    <!-- Contacts Table -->
+    <ContactTable v-if="contacts.length" :contacts="contacts" />
   </Layout>
 </template>

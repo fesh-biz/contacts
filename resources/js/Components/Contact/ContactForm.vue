@@ -20,6 +20,8 @@ const form = useForm({
 
 let formErrors = ref({})
 const submitForm = () => {
+  form.phone = form.phone.replace(/\s/g, '')
+
   const url = props.contact
     ? route('contacts.update', {contact: props.contact.id})
     : route('contacts.store')
