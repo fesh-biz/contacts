@@ -42,6 +42,5 @@ watch(() => props.errorMessage, (errorMessage) => {
     :type="type"
   />
 
-  {{ errorMessage }}
   <InputError class="mt-2" :message="errorMessage" />
 </template>
