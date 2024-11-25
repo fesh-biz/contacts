@@ -2,6 +2,7 @@
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import ContactTable from '@/Components/Contact/ContactTable.vue'
 import Layout from '@/Pages/Contact/Layout.vue'
+import {Link} from '@inertiajs/vue3'
 
 defineProps({
   contacts: {
@@ -14,7 +15,9 @@ defineProps({
 <template>
   <Layout title="Contacts">
     <template #headerButton>
-      <PrimaryButton>Add New Contact</PrimaryButton>
+      <Link :href="route('contacts.create')">
+        <PrimaryButton>Add New Contact</PrimaryButton>
+      </Link>
     </template>
 
     <ContactTable :contacts="contacts" />

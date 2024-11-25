@@ -1,5 +1,5 @@
 <script setup="">
-import {Head} from '@inertiajs/vue3'
+import {Head, Link} from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 
@@ -24,7 +24,9 @@ defineProps({
         </h2>
 
         <slot name="headerButton">
-          <PrimaryButton>Back</PrimaryButton>
+          <Link :href="route('contacts.index')">
+            <PrimaryButton>Back</PrimaryButton>
+          </Link>
         </slot>
       </div>
     </template>

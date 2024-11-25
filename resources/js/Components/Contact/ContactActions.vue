@@ -1,6 +1,7 @@
 <script setup="">
 import {onBeforeMount, onBeforeUnmount, onMounted, ref} from 'vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
+import {Link} from '@inertiajs/vue3'
 
 defineProps({
   contact: {
@@ -30,13 +31,26 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleGlobalClick)
 })
+
+const goTo = (url) => {
+
+}
 </script>
 
 <template>
   <!-- Desktop Actions -->
   <div v-if="!isMobile" class="flex flex-row gap-4">
-    <SecondaryButton>View</SecondaryButton>
-    <SecondaryButton>Edit</SecondaryButton>
+    <!-- Show -->
+    <Link :href="route('contacts.show', {contact: contact.id})">
+      <SecondaryButton>View</SecondaryButton>
+    </Link>
+
+    <!-- Edit -->
+    <Link :href="route('contacts.edit', {contact: contact.id})">
+      <SecondaryButton>Edit</SecondaryButton>
+    </Link>
+
+    <!-- Delete -->
     <SecondaryButton>Delete</SecondaryButton>
   </div>
 
@@ -62,15 +76,21 @@ onBeforeUnmount(() => {
         class="absolute right-11 -mt-8 w-40 bg-white border border-gray-300 rounded-lg shadow-lg"
         v-if="isOpen"
       >
-        <!-- View -->
-        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">View</a>
+        <!-- Show -->
+        <Link
+          :href="route('contacts.show', {contact: contact.id})"
+          class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+        >
+          View
+        </Link>
 
         <!-- Edit -->
-        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-           @click="$emit('edit')"
+        <Link
+          :href="route('contacts.edit', {contact: contact.id})"
+          class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
         >
           Edit
-        </a>
+        </Link>
 
         <!-- Delete -->
         <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Delete</a>
