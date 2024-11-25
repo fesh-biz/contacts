@@ -22,7 +22,7 @@ let formErrors = ref({})
 const submitForm = () => {
   const url = props.contact
     ? route('contacts.update', {contact: props.contact.id})
-    : route('contacts.create')
+    : route('contacts.store')
 
   const method = props.contact ? 'put' : 'post'
   form[method](url, {

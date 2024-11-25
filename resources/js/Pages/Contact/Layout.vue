@@ -1,7 +1,9 @@
 <script setup="">
-import {Head, Link} from '@inertiajs/vue3'
+import {Head, Link, usePage} from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
+import { useToast } from 'vue-toastification'
+import {onMounted} from 'vue'
 
 defineProps({
   title: {
@@ -9,6 +11,17 @@ defineProps({
     required: true
   }
 })
+
+const message = usePage().props.flash?.message
+
+if (message) {
+  const toast = useToast()
+  onMounted(() => {
+    toast.success(message, {
+      timeout: 3000
+    });
+  })
+}
 </script>
 
 <template>

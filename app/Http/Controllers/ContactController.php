@@ -47,7 +47,8 @@ class ContactController extends Controller
             'phone' => $r->phone
         ]);
 
-        return redirect(route('contacts.index'));
+        return redirect()->route('contacts.index')
+            ->with('message', 'Contact created successfully!');
     }
 
     /**
@@ -81,7 +82,8 @@ class ContactController extends Controller
             'phone' => $r->phone
         ]);
 
-        return redirect(route('contacts.index'));
+        return redirect()->route('contacts.index')
+            ->with('message', 'Contact updated successfully!');
     }
 
     /**
