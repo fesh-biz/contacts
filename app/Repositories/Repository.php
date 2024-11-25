@@ -16,7 +16,7 @@ class Repository implements RepositoryInterface
 
     public function all(): Collection
     {
-        return $this->model->select(['id', 'name', 'email'])->get();
+        return $this->model->all();
     }
 
     public function find(int $id): ?Model
