@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Repositories\ContactRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -37,9 +39,15 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ContactRequest $r): RedirectResponse
     {
-        //
+        $this->contactRepository->create([
+            'name' => $r->name,
+            'email' => $r->email,
+            'phone' => $r->phone
+        ]);
+
+        return redirect(route('contacts.index'));
     }
 
     /**
