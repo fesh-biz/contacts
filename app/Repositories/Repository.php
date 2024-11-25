@@ -26,9 +26,7 @@ class Repository implements RepositoryInterface
 
     public function findOrFail(int $id): ?Model
     {
-        return $this->model->select([
-            'name', 'email', 'phone'
-        ])->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     public function create(array $data): Model

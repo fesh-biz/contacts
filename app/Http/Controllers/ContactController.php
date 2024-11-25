@@ -73,9 +73,15 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ContactRequest $r, string $id): RedirectResponse
     {
-        //
+        $this->contactRepository->update($id, [
+            'name' => $r->name,
+            'email' => $r->email,
+            'phone' => $r->phone
+        ]);
+
+        return redirect(route('contacts.index'));
     }
 
     /**

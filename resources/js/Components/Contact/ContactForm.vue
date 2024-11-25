@@ -6,18 +6,26 @@ import SecondaryButton from '@/Components/SecondaryButton.vue'
 import {Link} from '@inertiajs/vue3'
 import {ref} from 'vue'
 
+const props = defineProps({
+  contact: {
+    type: Object
+  }
+})
+
 const form = useForm({
-  name: '',
-  email: '',
-  phone: ''
+  name: props.contact?.name || '',
+  email: props.contact?.email || '',
+  phone: props.contact?.phone || ''
 })
 
 let formErrors = ref({})
 const submitForm = () => {
-  form.post(route('contacts.store'), {
-    onFinish: () => {
-      console.log('onFinish')
-    },
+  const url = props.contact
+    ? route('contacts.update', {contact: props.contact.id})
+    : route('contacts.create')
+
+  const method = props.contact ? 'put' : 'post'
+  form[method](url, {
     onError: (errors) => {
       formErrors = errors
     },

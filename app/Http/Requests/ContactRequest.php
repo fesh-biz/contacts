@@ -21,9 +21,16 @@ class ContactRequest extends FormRequest
      */
     public function rules(): array
     {
+        $uniqueEmailRule = 'unique:contacts,email';
+        if($this->isMethod('PUT')) {
+            $contactId = $this->contact;
+            $uniqueEmailRule = `unique:contacts,email,${contactId}`;
+        }
+
+
         return [
             'name' => 'required|max:255',
-            'email' => 'required|email:rfc,dns|unique:contacts,email|max:255',
+            'email' => 'required|email:rfc,dns|' . $uniqueEmailRule . '|max:255',
             'phone' => 'nullable|regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/'
         ];
     }
