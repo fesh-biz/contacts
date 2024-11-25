@@ -1,9 +1,10 @@
 <script setup="">
 import {onBeforeMount, onBeforeUnmount, onMounted, ref} from 'vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
-import {Link} from '@inertiajs/vue3'
+import {Link, router} from '@inertiajs/vue3'
+import {useToast} from 'vue-toastification'
 
-defineProps({
+const props = defineProps({
   contact: {
     type: Object,
     required: true
@@ -32,8 +33,18 @@ onBeforeUnmount(() => {
   document.removeEventListener('click', handleGlobalClick)
 })
 
-const goTo = (url) => {
+// Delete contact
+const toast = useToast()
+const deleteContact = () => {
+  const confirmed = window.confirm("Are you sure you want to delete this contact?")
 
+  if (!confirmed) return
+
+  router.delete(route('contacts.destroy', {contact: props.contact.id}), {
+    onSuccess: () => {
+      toast.success('Contact deleted successfully!');
+    }
+  })
 }
 </script>
 
@@ -51,7 +62,7 @@ const goTo = (url) => {
     </Link>
 
     <!-- Delete -->
-    <SecondaryButton>Delete</SecondaryButton>
+    <SecondaryButton @click="deleteContact">Delete</SecondaryButton>
   </div>
 
   <!-- Mobile Actions -->
@@ -93,7 +104,13 @@ const goTo = (url) => {
         </Link>
 
         <!-- Delete -->
-        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Delete</a>
+        <a
+          @click="deleteContact"
+          href="#"
+          class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+        >
+          Delete
+        </a>
       </div>
     </Transition>
   </div>
